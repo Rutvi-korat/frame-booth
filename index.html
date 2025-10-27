@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Frame App</title>
+  
+  <link rel="stylesheet" href="style.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/konva@9/konva.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+  <canvas id="myCanvas"></canvas>
+
+  <aside class="toolbar" role="toolbar" aria-label="controls">
+    <div class="toolbar-row">
+
+      <div class="btn-group">
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <button id="uploadBtn" class="primary" title="Upload a screenshot (PNG, JPG) (Max 8MB)">
+          <i data-lucide="upload"></i>
+          <span>Upload</span>
+        </button>
+        <button id="deleteBtn" disabled title="Delete the currently selected screenshot/frame">
+          <i data-lucide="trash-2"></i>
+          <span>Delete</span>
+        </button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="input-group">
+        <label for="frameSelect">Frame</label>
+        <select id="frameSelect"></select>
+      </div>
+      <button id="addFrameBtn" class="primary" title="Add the selected device frame to the canvas">
+        <i data-lucide="plus-circle"></i>
+        <span>Add Frame</span>
+      </button>
+      <button id="updateFrameBtn" disabled title="Replace the selected frame with the one from the dropdown">
+        <i data-lucide="replace"></i>
+        <span>Update Frame</span>
+      </button>
+
+      <div class="divider"></div>
+
+      <div class="input-group small">
+        <label for="docWidth">Width (px)</label>
+        <input type="number" id="docWidth" min="200" value="900">
+      </div>
+      <div class="input-group small">
+        <label for="docHeight">Height (px)</label>
+        <input type="number" id="docHeight" min="400" value="600">
+      </div>
+      <div class="input-group color-group">
+        <label for="bgColor">Background<br>Color</label>
+        <input type="color" id="bgColor" value="#ffffff">
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="btn-group">
+        <button id="downloadFrameBtn" disabled title="Export only the selected frame as a PNG">
+          <i data-lucide="crop"></i>
+          <span>Export Frame</span>
+        </button>
+        <button id="downloadBtn" class="primary" title="Export the entire scene as a high-quality PNG">
+          <i data-lucide="download"></i>
+          <span>Export scene</span>
+        </button>
+      </div>
+
+    </div>
+  </aside>
+
+  <main class="preview-wrap">
+    <div id="mockupArea">
+      <canvas id="frameCanvas"></canvas>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script>
+    // Lucide icons must be initialized outside the module system
+    lucide.createIcons();
+  </script>
+
+</body>
+
+</html>
