@@ -7,89 +7,113 @@
   <title>Frame App</title>
   
   <link rel="stylesheet" href="style.css">
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+
   <script src="https://cdn.jsdelivr.net/npm/konva@9/konva.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
 
-  <canvas id="myCanvas"></canvas>
+  <header class="top-bar">
+    <div class="top-bar-content">
+      <div class="app-title-wrapper"> 
+      <img src="icons/framebooth_icon.svg" alt="Frame Booth Logo" class="app-logo">
+      <h1 class="app-title">Frame Booth</h1>
+    </div>
+    </div>
+  </header>
+
+  <main class="preview-wrap">
+    <canvas id="myCanvas"></canvas> <div id="mockupArea">
+      </div>
+  </main>
 
   <aside class="toolbar" role="toolbar" aria-label="controls">
-    <div class="toolbar-row">
-
-      <div class="btn-group">
-        <input type="file" id="fileInput" accept="image/*" hidden>
-        <button id="uploadBtn" class="primary" title="Upload a screenshot (PNG, JPG) (Max 8MB)">
-          <i data-lucide="upload"></i>
-          <span>Upload</span>
+    
+    <div class="toolbar-group">
+      <label>Screenshot</label>
+      <input type="file" id="fileInput" accept="image/*" hidden>
+      
+      <div class="button-row">
+        <button id="uploadBtn" class="btn accent-green" title="Upload a screenshot (PNG, JPG) (Max 8MB)">
+          <img src="icons/add_screenshot_icon.svg" alt="Add Screenshot">
+          <span>Add</span>
         </button>
-        <button id="deleteBtn" disabled title="Delete the currently selected screenshot/frame">
-          <i data-lucide="trash-2"></i>
+
+        <button id="deleteBtn" class="btn accent-red" disabled title="Delete the currently selected screenshot/frame">
+          <img src="icons/delete_icon_2.svg" alt="Delete">
           <span>Delete</span>
         </button>
       </div>
+    </div>
 
-      <div class="divider"></div>
+    <div class="divider"></div>
 
-      <div class="input-group">
-        <label for="frameSelect">Frame</label>
+    <div class="toolbar-group">
+      <label for="frameSelect">Device Frame</label>
+      <div class="select-wrapper">
         <select id="frameSelect"></select>
       </div>
-      <button id="addFrameBtn" class="primary" title="Add the selected device frame to the canvas">
-        <i data-lucide="plus-circle"></i>
-        <span>Add Frame</span>
-      </button>
-      <button id="updateFrameBtn" disabled title="Replace the selected frame with the one from the dropdown">
-        <i data-lucide="replace"></i>
-        <span>Update Frame</span>
-      </button>
 
-      <div class="divider"></div>
+      <div class="button-row stacked">
+        <button id="addFrameBtn" class="btn accent-orange" title="Add the selected device frame to the canvas">
+          <img src="icons/add_frame_icon.svg" alt="Add Frame">
+          <span>Add Frame</span>
+        </button>
 
-      <div class="input-group small">
-        <label for="docWidth">Width (px)</label>
-        <input type="number" id="docWidth" min="200" value="900">
+        <button id="updateFrameBtn" class="btn accent-orange" disabled title="Replace the selected frame with the one from the dropdown">
+          <img src="icons/update_frame_icon.svg" alt="Update Frame">
+          <span>Update Frame</span>
+        </button>
       </div>
-      <div class="input-group small">
-        <label for="docHeight">Height (px)</label>
-        <input type="number" id="docHeight" min="400" value="600">
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="toolbar-group">
+      <label>Canvas Settings</label>
+      <div class="input-row">
+        <div class="input-group small">
+          <label for="docWidth">Width</label>
+          <input type="number" id="docWidth" min="200" value="900">
+        </div>
+        <div class="input-group small">
+          <label for="docHeight">Height</label>
+          <input type="number" id="docHeight" min="400" value="600">
+        </div>
       </div>
       <div class="input-group color-group">
-        <label for="bgColor">Background<br>Color</label>
-        <input type="color" id="bgColor" value="#ffffff">
+        <label for="bgColor">BG Color</label>
+        <div class="color-picker-wrapper">
+          <input type="color" id="bgColor" value="#ffffff">
+        </div>
       </div>
-
-      <div class="divider"></div>
-
-      <div class="btn-group">
-        <button id="downloadFrameBtn" disabled title="Export only the selected frame as a PNG">
-          <i data-lucide="crop"></i>
-          <span>Export Frame</span>
-        </button>
-        <button id="downloadBtn" class="primary" title="Export the entire scene as a high-quality PNG">
-          <i data-lucide="download"></i>
-          <span>Export scene</span>
-        </button>
-      </div>
-
     </div>
+
+    <div class="divider"></div>
+
+    <div class="toolbar-group">
+      <label>Export</label>
+      
+      <button id="downloadFrameBtn" class="btn accent-blue" disabled title="Export only the selected frame as a PNG">
+        <img src="icons/download_frame_icon.svg" alt="Download Frame">
+        <span>Download Frame</span>
+      </button>
+
+      <button id="downloadBtn" class="btn accent-blue" title="Export the entire scene as a high-quality PNG">
+        <img src="icons/download_scene_icon.svg" alt="Download Scene">
+        <span>Download Scene</span>
+      </button>
+    </div>
+
   </aside>
 
-  <main class="preview-wrap">
-    <div id="mockupArea">
-      <canvas id="frameCanvas"></canvas>
-    </div>
-  </main>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script type="module" src="js/main.js"></script>
-  <script>
-    // Lucide icons must be initialized outside the module system
-    lucide.createIcons();
-  </script>
 
 </body>
-
 </html>

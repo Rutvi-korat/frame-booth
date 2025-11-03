@@ -26,7 +26,7 @@ let initialStageHeight;
 // ==========================================================================
 // PLACEHOLDER - createAndAddPlaceholder()
 // ==========================================================================
-function createAndAddPlaceholder(group, frameData, scale) {
+async function createAndAddPlaceholder(group, frameData, scale) {
     const screenRect = {
         x: frameData.screen.x * scale,
         y: frameData.screen.y * scale,
@@ -38,16 +38,17 @@ function createAndAddPlaceholder(group, frameData, scale) {
         name: 'upload-placeholder',
         x: screenRect.x,
         y: screenRect.y,
-        // === ADD THIS CLIP FUNCTION ===
+
+        // === CLIP FUNCTION ===
         clipFunc: function(ctx) {
             const scaledRadius = frameData.screen.cornerRadius * scale;
             ctx.beginPath();
             ctx.roundRect(0, 0, screenRect.width, screenRect.height, scaledRadius);
             
-            // Add island cutout
+            // island cutout
             if (frameData.screen.island) {
                 const island = frameData.screen.island;
-                // Calculate island position relative to the placeholder group
+                // island position relative to the placeholder group
                 const islandX = (island.x - frameData.screen.x) * scale;
                 const islandY = (island.y - frameData.screen.y) * scale;
                 const islandW = island.width * scale;
@@ -64,16 +65,15 @@ function createAndAddPlaceholder(group, frameData, scale) {
         height: screenRect.height,
     });
 
-    const uploadIconPath = 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M17 8l-5-5-5 5 M12 3v12';
-    const icon = new Konva.Path({
-        data: uploadIconPath,
-        stroke: '#d6d6d6ff',
-        strokeWidth: 1.5,
-        scale: { x: 2.5, y: 2.5 },
-    });
+    const iconImg = await loadImage('icons/add_screenshot_placeholder.svg');
+    const icon = new Konva.Image({
+    image: iconImg,
+    width: 60, 
+    height: 60,
+});
 
     const placeholderText = new Konva.Text({
-        text: 'Upload an Image',
+        text: 'Add a Screenshot',
         fontSize: 18,
         fontFamily: 'Inter, sans-serif',
         fill: '#d6d6d6ff',
@@ -83,7 +83,7 @@ function createAndAddPlaceholder(group, frameData, scale) {
     icon.position({ x: screenRect.width / 2, y: screenRect.height / 2 - 10 });
     placeholderText.position({ x: screenRect.width / 2, y: screenRect.height / 2 + 40 });
 
-    icon.offset({ x: 12, y: 12 });
+    icon.offset({ x: 30, y: 30 });
     placeholderText.offset({ x: placeholderText.width() / 2, y: placeholderText.height() / 2 });
 
     placeholderGroup.add(clickableArea, icon, placeholderText);
@@ -106,7 +106,7 @@ function createAndAddPlaceholder(group, frameData, scale) {
 // ==========================================================================
 // DELETE MOCKUP - deleteSelectedMockup()
 // ==========================================================================
-function deleteSelectedMockup() {
+async function deleteSelectedMockup() {
     const selected = tr.nodes()[0];
     if (!selected) return;
 
@@ -121,7 +121,7 @@ function deleteSelectedMockup() {
         const frameImage = frameNode.image();
         const scale = frameNode.width() / frameImage.width;
 
-        createAndAddPlaceholder(selected, frameData, scale);
+        await createAndAddPlaceholder(selected, frameData, scale);
         frameNode.moveToTop();
         layer.batchDraw();
     } else {
@@ -168,7 +168,7 @@ export async function addMockup() {
         height: frameHeight,
         listening: false
     });
-    createAndAddPlaceholder(group, frameData, scale);
+    await createAndAddPlaceholder(group, frameData, scale);
     group.add(frameNode);
 
 

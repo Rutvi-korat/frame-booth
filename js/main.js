@@ -12,7 +12,7 @@ import { initExport } from './export.js';
 // INITIALIZATION - initializeApp()
 // ==========================================================================
 async function initializeApp() {
-    // --- Perform initial UI setup ---
+    // --- initial UI setup ---
     const groupedFrames = frames.reduce((acc, frame) => {
         (acc[frame.group] = acc[frame.group] || []).push(frame);
         return acc;
@@ -30,7 +30,7 @@ async function initializeApp() {
     if (UI.frameSelect.options.length > 0) {
         UI.frameSelect.options[0].selected = true;
     }
-    // Set responsive default canvas size for mobile
+    // responsive default canvas size for mobile
     if (window.innerWidth <= 768) { 
         UI.docWidth.value = 350; 
         UI.docHeight.value = 600;
@@ -156,7 +156,6 @@ function initZoomPanControls() {
 
 
 previewWrap.addEventListener('touchstart', e => {
-        // Don't interfere with toolbar
         if (e.target.closest('.toolbar')) {
             return;
         }
@@ -230,7 +229,7 @@ previewWrap.addEventListener('touchmove', e => {
         const oldScale = scale;
         scale = Math.max(0.1, Math.min(4, scale * scaleFactor));
 
-        // Get zoom origin
+        // zoom origin
         const rect = mockupArea.getBoundingClientRect();
         const mouseX = lastCenter.x - rect.left;
         const mouseY = lastCenter.y - rect.top;
@@ -414,17 +413,25 @@ async function handleImageUpload(e) {
 function renderBackground() {
     const ctx = UI.canvasEl.getContext('2d');
     if (!ctx) return;
+
+    // ----- Get size from parent ---
+    const parent = UI.canvasEl.parentElement;
+    if (!parent) return;
+    const w = parent.clientWidth;
+    const h = parent.clientHeight;
+
     const dpr = window.devicePixelRatio || 1;
-    const { innerWidth: w, innerHeight: h } = window;
     UI.canvasEl.width = Math.floor(w * dpr);
     UI.canvasEl.height = Math.floor(h * dpr);
     UI.canvasEl.style.width = `${w}px`;
     UI.canvasEl.style.height = `${h}px`;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = '#f1f2f3';
+    
+    ctx.fillStyle = '#dfdedeff'; 
     ctx.fillRect(0, 0, w, h);
-    ctx.globalAlpha = 0.03;
-    ctx.strokeStyle = '#000';
+    ctx.globalAlpha = 0.5;
+    ctx.strokeStyle = '#beb8adff';
+
     for (let x = -h; x < w; x += 32) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
