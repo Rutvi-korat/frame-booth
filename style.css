@@ -443,3 +443,175 @@ input[type="color"] {
         text-shadow: none;
     }    
 }
+
+/* ==========================================================================
+    8. RESPONSIVE DESIGN 
+========================================================================== */
+
+@media (max-width: 765px) {
+
+  /* --- Page Layout --- */
+  body {
+    grid-template-areas:
+      "header" 
+      "sidebar" 
+      "main";
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto auto 1fr; 
+  }
+
+  /* --- Main Canvas Area --- */
+  .preview-wrap {
+    grid-area: main;
+    padding: 10px;
+  }
+
+  /* --- Top Bar (Logo Area) --- */
+  .top-bar {
+    grid-area: header; 
+    height: auto; 
+    padding: 2px 10px; 
+    display: flex;
+    justify-content: center;
+  }
+  .top-bar-content {
+    width: auto;
+  }
+  .app-title-wrapper .app-logo{
+    width: 28px;
+    height: 28px;
+  }
+  .app-title-wrapper .app-title{
+    font-size: 1.1rem;
+  }
+
+  .app-title-wrapper {
+    flex-shrink: 0;
+    padding-right: 15px;
+  }
+  
+  /* --- Toolbar --- */
+  .toolbar {
+    grid-area: sidebar;
+    background: linear-gradient(to bottom, #313131, #3a3a3a);
+    color: var(--text-light);
+    
+    /* scroll horizontally */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+
+    /* Reset desktop styles */
+    padding: 5px 0;
+    height: auto;
+    width: auto;
+    gap: 0;
+  }
+
+.toolbar .divider {
+    display: none;
+  }
+
+/* ---Toolbar Groups --- */
+.toolbar-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    border-right: 2px solid var(--divider-color);
+  }
+
+/*--- Labels --- */
+.toolbar-group > label {
+    display: none;
+  }
+.toolbar .input-group label {
+    font-size: 0.7rem;
+    text-align: center;
+    color: #b2b9c1;
+    white-space: nowrap;
+  }
+
+/* --- Buttons--- */
+  .toolbar .btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    grid-template-columns: 1fr;
+    width: 65px;
+    height: 50px;
+    padding: 6px 4px;
+    flex-shrink: 0;
+  }
+
+  .toolbar .btn img {
+    position: static; 
+    transform: none;
+    width: 18px;
+    height: 18px;
+  }
+
+  .toolbar .btn span {
+    grid-column: 1 / -1; 
+    font-size: 0.65rem; 
+    line-height: 1.1;
+    white-space: normal;
+    text-align: center;
+  }
+  
+/* --- Button Rows --- */
+  .toolbar .button-row {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  .toolbar .button-row.stacked {
+    flex-direction: row; 
+  }
+
+/* --- Inputs & Selects --- */
+  .toolbar input[type="number"],
+  .toolbar .select-wrapper {
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .toolbar input[type="number"] {
+    width: 50px; 
+    font-size: 0.8rem;
+    padding: 2px 4px;
+  }
+  
+  .toolbar .select-wrapper {
+      width: 120px;
+  }
+
+  .toolbar select {
+    font-size: 0.8rem;
+    padding: 2px 20px 2px 8px;
+    height: 28px;
+  }
+  
+  .toolbar .select-wrapper::after {
+    top: 50%; 
+    transform: translateY(-50%);
+  }
+  
+  .toolbar .color-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .toolbar input[type="color"] {
+    height: 28px;
+    width: 28px;
+    margin-top: 0;
+  }
+}
